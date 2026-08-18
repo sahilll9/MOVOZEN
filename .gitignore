@@ -1,0 +1,8 @@
+node_modules/
+.dart_tool/
+.idea/
+.vscode/
+build/
+*.apk
+*.log
+.DS_Store

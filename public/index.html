@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MoboSafe Pocket Dashcam - Movozen Hackathon</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Top Header -->
+    <header class="top-bar">
+      <div class="brand">
+        <div class="logo-icon">🚗</div>
+        <div class="brand-text">
+          <span class="brand-title">MoboSafe</span>
+          <span class="brand-subtitle">MOVOZEN DASHCAM PRO</span>
+        </div>
+      </div>
+      <div class="status-pill" id="statusPill">
+        <span class="status-dot"></span>
+        <span id="statusText">STANDBY</span>
+      </div>
+    </header>
+
+    <!-- Main Viewport Section -->
+    <main class="main-content">
+      <div class="video-container">
+        <!-- Live Video Element -->
+        <video id="webcamPreview" autoplay playsinline muted></video>
+        
+        <!-- HUD Overlay (Dashcam telemetry overlay) -->
+        <div class="hud-overlay">
+          <div class="hud-top">
+            <div class="hud-rec" id="recBadge">
+              <span class="rec-dot"></span> REC
+            </div>
+            <div class="hud-roll" id="hudRoll">ID: UNKNOWN</div>
+            <div class="hud-time" id="hudTime">00:00:00</div>
+          </div>
+          <div class="hud-bottom">
+            <div class="hud-stat">
+              <span class="stat-label">RES</span>
+              <span class="stat-val" id="hudRes">720p @ 25fps</span>
+            </div>
+            <div class="hud-stat">
+              <span class="stat-label">BITRATE</span>
+              <span class="stat-val" id="hudBitrate">0 kbps</span>
+            </div>
+            <div class="hud-stat">
+              <span class="stat-label">SENT</span>
+              <span class="stat-val" id="hudData">0.0 MB</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Audio Volume Bar Overlay -->
+        <div class="audio-meter-overlay">
+          <span class="mic-icon">🎙️</span>
+          <div class="audio-bar-bg">
+            <div class="audio-bar-fill" id="audioBarFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings & Controls Panel -->
+      <section class="controls-card">
+        <div class="form-group">
+          <label for="rollNoInput">STUDENT ROLL NUMBER <span class="req">*</span></label>
+          <div class="input-wrapper">
+            <input type="text" id="rollNoInput" placeholder="e.g. 22BCS0421" autocomplete="off" spellcheck="false">
+            <button class="icon-btn" id="saveRollBtn" title="Save Roll Number">✓</button>
+          </div>
+        </div>
+
+        <div class="camera-selector">
+          <label>SELECT CAMERA FEED</label>
+          <div class="segmented-control">
+            <button class="seg-btn active" data-cam="front">Front Cam (_front)</button>
+            <button class="seg-btn" data-cam="back">Back Cam (_back)</button>
+          </div>
+        </div>
+
+        <div class="stream-url-display">
+          <span class="url-label">TARGET RTMP ENDPOINT:</span>
+          <code id="rtmpTargetUrl">rtmp://15.207.177.194:1936/hackathon/{ROLLNO}_front</code>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="action-buttons">
+          <button id="toggleStreamBtn" class="btn btn-primary btn-large">
+            <span class="btn-icon">🔴</span> START DASHCAM STREAM
+          </button>
+        </div>
+
+        <!-- Features Checklist Status -->
+        <div class="feature-badges">
+          <div class="badge badge-active" id="wakeLockBadge" title="Prevents screen from turning off">
+            🔒 Screen Lock Active
+          </div>
+          <div class="badge badge-active" title="Auto reconnects on network drops">
+            🔄 Auto-Reconnect ON
+          </div>
+          <div class="badge badge-active" title="Direct H.264 / AAC FLV stream">
+            ⚡ H.264 / AAC 720p
+          </div>
+        </div>
+      </section>
+
+      <!-- Live Viewer & Mobile Instructions -->
+      <section class="viewer-card">
+        <div class="card-header">
+          <h3>🖥️ VERIFY STREAM ON SERVER</h3>
+        </div>
+        <div class="viewer-actions">
+          <a href="http://15.207.177.194:8081/web/player.html" target="_blank" class="btn btn-secondary">
+            🔗 Open Movozen Live Viewer Page
+          </a>
+          <button id="openFlvBtn" class="btn btn-secondary">
+            📺 Open Direct Stream (.flv)
+          </button>
+        </div>
+        
+        <div class="mobile-ip-box">
+          <p class="ip-title">📱 FOR MOBILE PHONE CAMERA PERMISSIONS:</p>
+          <p style="font-size: 0.75rem; color: #cbd5e1; margin-bottom: 6px;">Chrome requires HTTPS to show the Camera & Mic popup on mobile over Wi-Fi:</p>
+          <div id="ipList" class="ip-list">Loading server IPs...</div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>MOVOZEN PRIVATE LIMITED · CAMPUS HIRING 2026 · POCKET DASHCAM CHALLENGE</p>
+    </footer>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
